@@ -35,10 +35,35 @@ export default {
     methods: {
         async login () {
         if(this.studentId == '501220327') {
+            Swal.fire({
+                title: 'Success',
+                text: 'Welcome to the system!',
+                icon: 'success',
+            });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Welcome to the system',
+            });
             this.$router.push('/registered-courses');
         } else {
             if(this.studentId === '' || typeof this.studentId === 'string') {
-            alert('Please enter your student id');
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please enter your student id',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
             return;
         }
         localStorage.setItem('studentId', this.studentId);
